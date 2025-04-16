@@ -6,10 +6,13 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(
     new ValidationPipe({
-    // remove unwanted ....
+      // remove unwanted ....
       whitelist: true,
       // if u dont want it to send and instead show what wasnt supposed to be sent
       forbidNonWhitelisted: true,
+      transformOptions: {
+        enableImplicitConversion: true,
+      },
     }),
   );
   await app.listen(process.env.PORT ?? 3000);

@@ -11,7 +11,9 @@ import {
 import { CoffeesService } from './coffees.service';
 import { CreateCoffeesDto } from 'src/coffess/dto/create-coffees.dto/create-coffees.dto';
 import { UpdateCoffeeDto } from 'src/coffess/dto/update-coffee.dto/update-coffee.dto';
+import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto/pagination-query.dto';
 
+// nest g class common/dto/pagination-query.dto --no-spec (for paginatuion)
 @Controller('coffees')
 export class CoffeesController {
   constructor(private readonly coffeesService: CoffeesService) {}
@@ -53,10 +55,10 @@ export class CoffeesController {
 
   // for pagination
   @Get()
-  findAll(@Query() paginationQuery) {
+  findAll(@Query() paginationQuery: PaginationQueryDto) {
     // const { limit, offset } = paginationQuery;
     // return `This returns all coffees. limit: ${limit}, offset: ${offset}`;
-    return this.coffeesService.findAll();
+    return this.coffeesService.findAll(paginationQuery);
   }
 }
 
